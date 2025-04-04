@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASHASASHA FOUNDATION | Supporting the Less Privileged</title>
+    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<!-- Donation Section -->
+<section id="donate" class="section donate">
+    <a href="#donate" class="btn btn-primary">Donate Now</a>
+            
+    <div class="donation-container">
+        <h1>Support Our Cause</h1>
+        
+        <form id="donationForm">
+            <div class="form-group">
+                <label for="currency">Select Currency:</label>
+                <select id="currency" name="currency">
+                    <option value="USD">US Dollar (USD)</option>
+                    <option value="EUR">Euro (EUR)</option>
+                    <option value="GBP">British Pound (GBP)</option>
+                    <option value="JPY">Japanese Yen (JPY)</option>
+                    <option value="CAD">Canadian Dollar (CAD)</option>
+                    <option value="AUD">Australian Dollar (AUD)</option>
+                    <option value="INR">Indian Rupee (INR)</option>
+                    <option value="ZAR">South African Rand (ZAR)</option>
+                    <option value="KES">Kenyan Shilling (KES)</option>
+                    <option value="NGN">Nigerian Naira (NGN)</option>
+                    <option value="TZ">Tanzania shillings(TZ)</option>
+                    <!-- Add more currencies as needed -->
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="amount">Donation Amount:</label>
+                <div class="amount-container">
+                    <span id="currencySymbol" class="currency-symbol">$</span>
+                    <input type="number" id="amount" name="amount" min="1" step="0.01" placeholder="Enter amount" required>
+                </div>
+                <p id="conversionNote" class="conversion-note"></p>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit">Donate Now</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Currency data with symbols and sample conversion rates
+        const currencies = {
+            USD: { symbol: '$', name: 'US Dollar', rate: 1 },
+            EUR: { symbol: '€', name: 'Euro', rate: 0.85 },
+            GBP: { symbol: '£', name: 'British Pound', rate: 0.72 },
+            JPY: { symbol: '¥', name: 'Japanese Yen', rate: 110.25 },
+            CAD: { symbol: 'CA$', name: 'Canadian Dollar', rate: 1.21 },
+            AUD: { symbol: 'AU$', name: 'Australian Dollar', rate: 1.29 },
+            INR: { symbol: '₹', name: 'Indian Rupee', rate: 74.85 },
+            ZAR: { symbol: 'R', name: 'South African Rand', rate: 14.72 },
+            KES: { symbol: 'KSh', name: 'Kenyan Shilling', rate: 110.50 },
+            NGN: { symbol: '₦', name: 'Nigerian Naira', rate: 411.50 }
+        };
+
+        // Get DOM elements
+        const currencySelect = document.getElementById('currency');
+        const currencySymbol = document.getElementById('currencySymbol');
+        const amountInput = document.getElementById('amount');
+        const conversionNote = document.getElementById('conversionNote');
+        const donationForm = document.getElementById('donationForm');
+
+        // Update currency symbol when selection changes
+        currencySelect.addEventListener('change', function() {
+            const selectedCurrency = this.value;
+            currencySymbol.textContent = currencies[selectedCurrency].symbol;
+            updateConversionNote();
+        });
+
+        // Update conversion note when amount changes
+        amountInput.addEventListener('input', updateConversionNote);
+
+        // Update the conversion note
+        function updateConversionNote() {
+            const selectedCurrency = currencySelect.value;
+            const amount = parseFloat(amountInput.value) || 0;
+            const usdAmount = (amount / currencies[selectedCurrency].rate).toFixed(2);
+            
+            if (selectedCurrency !== 'USD' && amount > 0) {
+                conversionNote.textContent = `≈ $${usdAmount} USD`;
+            } else {
+                conversionNote.textContent = '';
+            }
+        }
+
+        // Handle form submission
+        donationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const selectedCurrency = currencySelect.value;
+            const amount = amountInput.value;
+            
+            // Here you would typically send this data to your payment processor
+            alert(`Donating ${currencies[selectedCurrency].symbol}${amount} ${selectedCurrency}`);
+            
+            // Reset form
+            amountInput.value = '';
+            conversionNote.textContent = '';
+        });
+
+        // Initialize with default currency
+        updateConversionNote();
+    </script>

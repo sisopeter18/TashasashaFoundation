@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASHASASHA FOUNDATION | Supporting the Less Privileged</title>
+    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Contact Info -->
+<div class="contact-info">
+    <h3 class="info-title">Get in Touch</h3>
+    
+    <div class="info-item">
+        <div class="info-icon">
+            <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <div class="info-content">
+            <h3>Our Headquarters</h3>
+            <p>123 Charity Avenue<br>Hope City, HC 12345<br>United States</p>
+        </div>
+    </div>
+    
+    <div class="info-item">
+        <div class="info-icon">
+            <i class="fas fa-phone-alt"></i>
+        </div>
+        <div class="info-content">
+            <h3>Phone</h3>
+            <p>
+                <a href="tel:+18005551234">(800) 555-1234</a><br>
+                <span style="font-size: 0.9rem;">Mon-Fri: 9AM - 5PM EST</span>
+            </p>
+        </div>
+    </div>
+    
+    <div class="info-item">
+        <div class="info-icon">
+            <i class="fas fa-envelope"></i>
+        </div>
+        <div class="info-content">
+            <h3>Email</h3>
+            <p>
+                <a href="mailto:info@charity.org">info@charity.org</a><br>
+                <a href="mailto:donations@charity.org">donations@charity.org</a>
+            </p>
+        </div>
+    </div>
+    
+    <div class="social-links">
+        <a href="#" class="social-link" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="social-link" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="social-link" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="social-link" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="#" class="social-link" aria-label="YouTube">
+            <i class="fab fa-youtube"></i>
+        </a>
+    </div>
+</div>
+</div>
+
+<!-- Map -->
+<div class="contact-map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215209179014!2d-73.9882796845938!3d40.74844047932798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1629990000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+</div>
+</div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const form = document.getElementById('charityContactForm');
+const successMessage = document.getElementById('successMessage');
+
+// Form validation
+form.addEventListener('submit', function(e) {
+e.preventDefault();
+let isValid = true;
+
+// Reset error states
+const formGroups = form.querySelectorAll('.form-group');
+formGroups.forEach(group => {
+    group.classList.remove('error');
+});
+
+// Validate required fields
+const requiredFields = form.querySelectorAll('[required]');
+requiredFields.forEach(field => {
+    if (!field.value.trim()) {
+        isValid = false;
+        const formGroup = field.closest('.form-group');
+        if (formGroup) {
+            formGroup.classList.add('error');
+        }
+    }
+});
+
+// Validate email format
+const emailField = form.querySelector('#email');
+if (emailField.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+    isValid = false;
+    const formGroup = emailField.closest('.form-group');
+    if (formGroup) {
+        formGroup.classList.add('error');
+        formGroup.querySelector('.error-message').textContent = 'Please enter a valid email address';
+    }
+}
+
+// Validate privacy checkbox
+const privacyCheckbox = form.querySelector('#privacy');
+if (!privacyCheckbox.checked) {
+    isValid = false;
+    const formGroup = privacyCheckbox.closest('.form-check');
+    if (formGroup) {
+        formGroup.classList.add('error');
+    }
+}
+
+// If form is valid, show success message
+if (isValid) {
+    // In a real implementation, you would send the form data to a server here
+    // For demo purposes, we'll just show the success message
+    form.style.display = 'none';
+    successMessage.style.display = 'block';
+    
+    // Scroll to success message
+    successMessage.scrollIntoView({ behavior: 'smooth' });
+    
+    // Reset form after 5 seconds
+    setTimeout(() => {
+        form.reset();
+        form.style.display = 'block';
+        successMessage.style.display = 'none';
+    }, 5000);
+} else {
+    // Scroll to first error
+    const firstError = form.querySelector('.error');
+    if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+});
+
+// Phone number formatting
+const phoneField = document.getElementById('phone');
+if (phoneField) {
+phoneField.addEventListener('input', function(e) {
+    const x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+    e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+});
+}
+});
+</script>
+</body>
+</html>
