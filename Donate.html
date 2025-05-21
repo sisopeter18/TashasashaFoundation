@@ -42,7 +42,15 @@
                 </div>
                 <p id="conversionNote" class="conversion-note"></p>
             </div>
-            
+            <div class="form-group">
+            <label for="payment-method">Select Payment Method:</label>
+            <select id="payment-method" name="payment-method" required>
+                <option value="" disabled selected>Select a payment method</option>
+                <option value="paypal">PayPal</option>
+                <option value="mpesa">M-Pesa</option>
+                <option value="visa">Visa Card</option>
+            </select>
+        </div>
             <div class="form-group">
                 <button type="submit">Donate Now</button>
             </div>
